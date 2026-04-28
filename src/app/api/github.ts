@@ -3,9 +3,10 @@
 import {Octokit} from "@octokit/core";
 import {paginateRest} from "@octokit/plugin-paginate-rest";
 import {retry} from "@octokit/plugin-retry";
+import {unstable_cache} from "next/cache";
 
 
-async function getNumberOfPublicRepos(owner: string): Promise<number> {
+async function fetchNumberOfPublicRepos(owner: string): Promise<number> {
 
     const octokitplugin = Octokit.plugin(paginateRest, retry).defaults({
         userAgent: "norwegian-public-organizations",
@@ -27,6 +28,12 @@ async function getNumberOfPublicRepos(owner: string): Promise<number> {
         return 0
     }
 }
+
+const getNumberOfPublicRepos = unstable_cache(
+    fetchNumberOfPublicRepos,
+    ['number-of-public-repos'],
+    {revalidate: 3600}
+)
 
 export default getNumberOfPublicRepos
 
