@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "Statens vegvesen",
+    "name": "Statens Vegvesen",
     "url": "https://github.com/nvdb-vegdata",
     "owner": "nvdb-vegdata"
   },
@@ -127,7 +127,7 @@
   },
   {
     "id": 22,
-    "name": "Statens vegvesen",
+    "name": "Norwegian Public Roads Administration",
     "url": "https://github.com/NPRA",
     "owner": "NPRA"
   },
