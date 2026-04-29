@@ -73,186 +73,174 @@
   },
   {
     "id": 13,
-    "name": "Trondheim kommune",
-    "url": "https://github.com/Trondheim-kommune",
-    "owner": "Trondheim-kommune"
-  },
-  {
-    "id": 14,
-    "name": "Trondheim Kommune TIP",
-    "url": "https://github.com/tktip",
-    "owner": "tktip"
-  },
-  {
-    "id": 15,
     "name": "Norsk institutt for vannforskning",
     "url": "https://github.com/NIVANorge",
     "owner": "NIVANorge"
   },
   {
-    "id": 16,
+    "id": 14,
     "name": "Skatteetaten",
     "url": "https://github.com/skatteetaten",
     "owner": "skatteetaten"
   },
   {
-    "id": 17,
+    "id": 15,
     "name": "Nav teknologiavdelingen",
     "url": "https://github.com/navikt",
     "owner": "navikt"
   },
   {
-    "id": 18,
+    "id": 16,
     "name": "Oslo kommune",
     "url": "https://github.com/oslokommune",
     "owner": "oslokommune"
   },
   {
-    "id": 19,
+    "id": 17,
     "name": "Direktoratet for samfunnssikkerhet og beredskap",
     "url": "https://github.com/dsb-norge",
     "owner": "dsb-norge"
   },
   {
-    "id": 20,
+    "id": 18,
     "name": "Bergen kommune",
     "url": "https://github.com/bergenkommune",
     "owner": "bergenkommune"
   },
   {
-    "id": 21,
+    "id": 19,
     "name": "Statens vegvesen",
     "url": "https://github.com/vegvesen",
     "owner": "vegvesen"
   },
   {
-    "id": 22,
+    "id": 20,
     "name": "Norwegian Public Roads Administration",
     "url": "https://github.com/NPRA",
     "owner": "NPRA"
   },
   {
-    "id": 23,
+    "id": 21,
     "name": "Kystverket",
     "url": "https://github.com/Kystverket",
     "owner": "Kystverket"
   },
   {
-    "id": 24,
+    "id": 22,
     "name": "Brønnøysundregistrene",
     "url": "https://github.com/brreg",
     "owner": "brreg"
   },
   {
-    "id": 25,
+    "id": 23,
     "name": "Digitaliseringsdirektoratet (Digdir)",
     "url": "https://github.com/difi",
     "owner": "difi"
   },
   {
-    "id": 26,
+    "id": 24,
     "name": "Mattilsynet",
     "url": "https://github.com/Mattilsynet",
     "owner": "Mattilsynet"
   },
   {
-    "id": 27,
+    "id": 25,
     "name": "Miljødirektoratet",
     "url": "https://github.com/miljodir",
     "owner": "miljodir"
   },
   {
-    "id": 28,
+    "id": 26,
     "name": "Riksrevisjonen",
     "url": "https://github.com/Riksrevisjonen",
     "owner": "Riksrevisjonen"
   },
   {
-    "id": 29,
+    "id": 27,
     "name": "Toll",
     "url": "https://github.com/toll",
     "owner": "toll"
   },
   {
-    "id": 30,
+    "id": 28,
     "name": "Utdanningsdirektoratet",
     "url": "https://github.com/Utdanningsdirektoratet",
     "owner": "Utdanningsdirektoratet"
   },
   {
-    "id": 31,
+    "id": 29,
     "name": "Forbrukerrådet",
     "url": "https://github.com/Forbrukerradet",
     "owner": "Forbrukerradet"
   },
   {
-    "id": 32,
+    "id": 30,
     "name": "Artsdatabanken",
     "url": "https://github.com/Artsdatabanken",
     "owner": "Artsdatabanken"
   },
   {
-    "id": 33,
+    "id": 31,
     "name": "Direktoratet for forvaltning og økonomistyring",
     "url": "https://github.com/dfo-no",
     "owner": "dfo-no"
   },
   {
-    "id": 34,
+    "id": 32,
     "name": "Nasjonalbiblioteket",
     "url": "https://github.com/NationalLibraryOfNorway",
     "owner": "NationalLibraryOfNorway"
   },
   {
-    "id": 35,
+    "id": 33,
     "name": "SIKT",
     "url": "https://github.com/BIBSYSDEV",
     "owner": "BIBSYSDEV"
   },
   {
-    "id": 36,
+    "id": 34,
     "name": "MUSIT-Norway",
     "url": "https://github.com/MUSIT-Norway",
     "owner": "MUSIT-Norway"
   },
   {
-    "id": 37,
+    "id": 35,
     "name": "Vy",
     "url": "https://github.com/nsbno",
     "owner": "nsbno"
   },
   {
-    "id": 38,
+    "id": 36,
     "name": "Norwegian Meteorological Institute",
     "url": "https://github.com/metno",
     "owner": "metno"
   },
   {
-    "id": 39,
+    "id": 37,
     "name": "NAIS - Nav Application Infrastructure Service",
     "url": "https://github.com/nais",
     "owner": "nais"
   },
   {
-    "id": 40,
+    "id": 38,
     "name": "Norsk Helsenett SF",
     "url": "https://github.com/NorskHelsenett",
     "owner": "NorskHelsenett"
   },
   {
-    "id": 41,
+    "id": 39,
     "name": "Digdir",
     "url": "https://github.com/digdir",
     "owner": "digdir"
   },
   {
-    "id": 42,
+    "id": 40,
     "name": "Politiet",
     "url": "https://github.com/politiet",
     "owner": "politiet"
   },
   {
-    "id": 43,
+    "id": 41,
     "name": "Arbeidstilsynet",
     "url": "https://github.com/Arbeidstilsynet",
     "owner": "Arbeidstilsynet"
