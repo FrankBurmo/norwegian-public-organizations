@@ -24,28 +24,19 @@ export const OrganizationsOnGithub = () => {
     const [organizationsWithRepos, setOrganizationsWithRepos] = useState<OrganizationsWithRepos[]>([]);
 
     useEffect(() => {
-        let cancelled = false;
-
-        (async () => {
-            const results = await Promise.all(
-                organizationsOnGithub.map(async (organization) => {
-                    const repos = await getNumberOfPublicRepos(organization.owner);
-                    return {
-                        id: organization.id,
-                        name: organization.name,
-                        url: organization.url,
-                        owner: organization.owner,
-                        repos,
-                    };
-                })
-            );
-
-            if (!cancelled) setOrganizationsWithRepos(results);
-        })();
-
-        return () => {
-            cancelled = true;
-        };
+        organizationsOnGithub.forEach(organization => (
+            getNumberOfPublicRepos(organization.owner)
+                .then((numberOfRepos) => {
+                    setOrganizationsWithRepos(organizationsWithRepos => {
+                        return [{
+                            id: organization.id,
+                            name: organization.name,
+                            url: organization.url,
+                            owner: organization.owner,
+                            repos: numberOfRepos
+                        }, ...organizationsWithRepos]
+                    });
+                })));
     }, []);
 
     const organizationsWithReposByRepoNumber: OrganizationsWithRepos[] = organizationsWithRepos.sort((a, b) => b.repos - a.repos)

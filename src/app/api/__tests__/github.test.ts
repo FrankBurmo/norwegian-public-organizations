@@ -56,7 +56,6 @@ describe('getNumberOfPublicRepos', () => {
     })
 
     it('returns 0 when the request throws an error', async () => {
-        jest.spyOn(console, 'log').mockImplementation(() => {})
         mockRequest.mockRejectedValue(new Error('Not Found'))
 
         const result = await getNumberOfPublicRepos('non-existent-org')
