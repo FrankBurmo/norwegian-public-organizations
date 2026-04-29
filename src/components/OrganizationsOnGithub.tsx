@@ -19,12 +19,6 @@ type OrganizationsWithRepos = {
     repos: number
 }
 
-type GroupedOrganization = {
-    name: string;
-    orgs: OrganizationsWithRepos[];
-    totalRepos: number;
-}
-
 export const OrganizationsOnGithub = () => {
     const organizationsOnGithub: OrganizationsJson[] = organizations
     const [organizationsWithRepos, setOrganizationsWithRepos] = useState<OrganizationsWithRepos[]>([]);
@@ -54,17 +48,8 @@ export const OrganizationsOnGithub = () => {
         };
     }, []);
 
-    const groupedOrganizations: GroupedOrganization[] = Object.values(
-        organizationsWithRepos.reduce((acc, org) => {
-            const key = org.name.toLowerCase();
-            if (!acc[key]) {
-                acc[key] = {name: org.name, orgs: [], totalRepos: 0};
-            }
-            acc[key].orgs.push(org);
-            acc[key].totalRepos += org.repos;
-            return acc;
-        }, {} as Record<string, GroupedOrganization>)
-    ).sort((a, b) => b.totalRepos - a.totalRepos);
+    const organizationsWithReposByRepoNumber: OrganizationsWithRepos[] = organizationsWithRepos.sort((a, b) => b.repos - a.repos)
+
 
     return (
         <div className="relative overflow-x-auto">
@@ -80,7 +65,7 @@ export const OrganizationsOnGithub = () => {
                 on
                 GitHub</h1>
             {
-                groupedOrganizations.length > 0 &&
+                organizationsWithReposByRepoNumber &&
                 <table className="w-full text-sm text-left rtl:text-right">
                     <thead className="text-m uppercase">
                     <tr>
@@ -90,31 +75,18 @@ export const OrganizationsOnGithub = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {groupedOrganizations.map((group, idx) =>
-                        <tr className="border-b dark:border-gray-700" key={group.name}>
-                            <td className="px-3 py-4">{idx + 1}</td>
-                            <td className="px-3 py-4">
-                                {group.orgs.length === 1 ? (
-                                    <a className="text-blue-600 dark:text-blue-500 hover:underline"
-                                       href={group.orgs[0].url}>{group.name}</a>
-                                ) : (
-                                    <div>
-                                        <span className="font-medium text-blue-600 dark:text-blue-500">{group.name}</span>
-                                        <div className="flex flex-wrap gap-2 mt-1">
-                                            {group.orgs.map(org => (
-                                                <a key={org.id}
-                                                   className="text-blue-600 dark:text-blue-500 hover:underline text-xs"
-                                                   href={org.url}>{org.owner}</a>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-                            </td>
-                            <td className="px-3 py-4">
-                                {group.totalRepos}
-                            </td>
-                        </tr>
-                    )}
+ {organizationsWithReposByRepoNumber.map((organization, idx) =>
+    <tr className="border-b dark:border-gray-700" key={organization.id}>
+        <td className="px-3 py-4">{idx + 1}</td>
+        <td className="px-3 py-4">
+            <a className="text-blue-600 dark:text-blue-500 hover:underline"
+               href={organization.url}>{organization.name}</a>
+        </td>
+        <td className="px-3 py-4">
+            {organization.repos}
+        </td>
+    </tr>
+)}
                     </tbody>
                 </table>
             }
