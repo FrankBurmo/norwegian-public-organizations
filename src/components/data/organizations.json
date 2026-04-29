@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "Statens Vegvesen",
+    "name": "Statens vegvesen",
     "url": "https://github.com/nvdb-vegdata",
     "owner": "nvdb-vegdata"
   },
@@ -97,7 +97,7 @@
   },
   {
     "id": 17,
-    "name": "Nav Teknologiavdelingen",
+    "name": "Nav teknologiavdelingen",
     "url": "https://github.com/navikt",
     "owner": "navikt"
   },
