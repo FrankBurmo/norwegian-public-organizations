@@ -90,7 +90,7 @@ export const OrganizationsOnGithub = () => {
                                        href={group.orgs[0].url}>{group.name}</a>
                                 ) : (
                                     <div>
-                                        <span className="font-medium">{group.name}</span>
+                                        <span className="font-medium text-blue-600 dark:text-blue-500">{group.name}</span>
                                         <div className="flex flex-wrap gap-2 mt-1">
                                             {group.orgs.map(org => (
                                                 <a key={org.id}
