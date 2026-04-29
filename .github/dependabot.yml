@@ -1,0 +1,37 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      framework:
+        patterns:
+          - "next"
+          - "react"
+          - "react-dom"
+      octokit:
+        patterns:
+          - "@octokit/*"
+      typescript:
+        patterns:
+          - "typescript"
+          - "@types/*"
+      styling:
+        patterns:
+          - "tailwindcss"
+          - "postcss"
+          - "autoprefixer"
+      linting:
+        patterns:
+          - "eslint"
+          - "eslint-*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
