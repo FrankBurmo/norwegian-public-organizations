@@ -30,19 +30,28 @@ export const OrganizationsOnGithub = () => {
     const [organizationsWithRepos, setOrganizationsWithRepos] = useState<OrganizationsWithRepos[]>([]);
 
     useEffect(() => {
-        organizationsOnGithub.forEach(organization => (
-            getNumberOfPublicRepos(organization.owner)
-                .then((numberOfRepos) => {
-                    setOrganizationsWithRepos(organizationsWithRepos => {
-                        return [{
-                            id: organization.id,
-                            name: organization.name,
-                            url: organization.url,
-                            owner: organization.owner,
-                            repos: numberOfRepos
-                        }, ...organizationsWithRepos]
-                    });
-                })));
+        let cancelled = false;
+
+        (async () => {
+            const results = await Promise.all(
+                organizationsOnGithub.map(async (organization) => {
+                    const repos = await getNumberOfPublicRepos(organization.owner);
+                    return {
+                        id: organization.id,
+                        name: organization.name,
+                        url: organization.url,
+                        owner: organization.owner,
+                        repos,
+                    };
+                })
+            );
+
+            if (!cancelled) setOrganizationsWithRepos(results);
+        })();
+
+        return () => {
+            cancelled = true;
+        };
     }, []);
 
     const groupedOrganizations: GroupedOrganization[] = Object.values(
