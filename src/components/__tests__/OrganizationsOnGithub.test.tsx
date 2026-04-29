@@ -1,5 +1,5 @@
 import React from 'react'
-import {render, screen} from '@testing-library/react'
+import {render, screen, waitFor} from '@testing-library/react'
 import {OrganizationsOnGithub} from '../OrganizationsOnGithub'
 import getNumberOfPublicRepos from '../../app/api/github'
 
@@ -28,14 +28,14 @@ describe('OrganizationsOnGithub', () => {
         expect(screen.getByText('Norwegian public organizations on GitHub')).toBeInTheDocument()
     })
 
-    it('renders table headers', async () => {
+    it('renders table headers', () => {
         mockGetNumberOfPublicRepos.mockResolvedValue(0)
 
         render(<OrganizationsOnGithub/>)
 
-        expect(await screen.findByText('Rank')).toBeInTheDocument()
-        expect(await screen.findByText('Name')).toBeInTheDocument()
-        expect(await screen.findByText('Number of repos')).toBeInTheDocument()
+        expect(screen.getByText('Rank')).toBeInTheDocument()
+        expect(screen.getByText('Name')).toBeInTheDocument()
+        expect(screen.getByText('Number of repos')).toBeInTheDocument()
     })
 
     it('renders organizations with repo counts after data loads', async () => {
@@ -45,8 +45,10 @@ describe('OrganizationsOnGithub', () => {
 
         render(<OrganizationsOnGithub/>)
 
-        expect(await screen.findByText('Nav Teknologiavdelingen')).toBeInTheDocument()
-        expect(await screen.findByText('Skatteetaten')).toBeInTheDocument()
+        await waitFor(() => {
+            expect(screen.getByText('Nav Teknologiavdelingen')).toBeInTheDocument()
+            expect(screen.getByText('Skatteetaten')).toBeInTheDocument()
+        })
     })
 
     it('renders organization links with correct href', async () => {
@@ -54,8 +56,10 @@ describe('OrganizationsOnGithub', () => {
 
         render(<OrganizationsOnGithub/>)
 
-        const naviktLink = await screen.findByRole('link', {name: 'Nav Teknologiavdelingen'})
-        expect(naviktLink).toHaveAttribute('href', 'https://github.com/navikt')
+        await waitFor(() => {
+            const naviktLink = screen.getByRole('link', {name: 'Nav Teknologiavdelingen'})
+            expect(naviktLink).toHaveAttribute('href', 'https://github.com/navikt')
+        })
     })
 
     it('sorts organizations by number of repos in descending order', async () => {
@@ -68,10 +72,12 @@ describe('OrganizationsOnGithub', () => {
 
         render(<OrganizationsOnGithub/>)
 
-        const rows = await screen.findAllByRole('row')
-        // rows[0] is the header row, rows[1] should be the org with most repos
-        const firstDataRow = rows[1]
-        expect(firstDataRow).toHaveTextContent('Nav Teknologiavdelingen')
+        await waitFor(() => {
+            const rows = screen.getAllByRole('row')
+            // rows[0] is the header row, rows[1] should be the org with most repos
+            const firstDataRow = rows[1]
+            expect(firstDataRow).toHaveTextContent('Nav Teknologiavdelingen')
+        })
     })
 
     it('renders the GitHub icon link', () => {
