@@ -1,4 +1,5 @@
 # norwegian-public-organizations
+![screenshot](screenshot.jpg)
 
 ## Technologies used
 * Bun
