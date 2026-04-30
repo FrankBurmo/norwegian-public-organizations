@@ -1,6 +1,6 @@
 'use client';
 
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import organizations from "./data/organizations.json";
 import getNumberOfPublicRepos from "../app/api/github";
 
@@ -17,6 +17,12 @@ type OrganizationsWithRepos = {
     url: string;
     owner: string;
     repos: number
+}
+
+type GroupedOrganization = {
+    name: string;
+    totalRepos: number;
+    orgs: OrganizationsWithRepos[];
 }
 
 export const OrganizationsOnGithub = () => {
@@ -39,7 +45,23 @@ export const OrganizationsOnGithub = () => {
                 })));
     }, []);
 
-    const organizationsWithReposByRepoNumber: OrganizationsWithRepos[] = organizationsWithRepos.sort((a, b) => b.repos - a.repos)
+    const groupedOrganizations: GroupedOrganization[] = useMemo(() => {
+        const groupMap = new Map<string, GroupedOrganization>();
+        for (const org of organizationsWithRepos) {
+            const existing = groupMap.get(org.name);
+            if (existing) {
+                existing.totalRepos += org.repos;
+                existing.orgs.push(org);
+            } else {
+                groupMap.set(org.name, {
+                    name: org.name,
+                    totalRepos: org.repos,
+                    orgs: [org],
+                });
+            }
+        }
+        return Array.from(groupMap.values()).sort((a, b) => b.totalRepos - a.totalRepos);
+    }, [organizationsWithRepos]);
 
 
     return (
@@ -56,7 +78,7 @@ export const OrganizationsOnGithub = () => {
                 on
                 GitHub</h1>
             {
-                organizationsWithReposByRepoNumber &&
+                groupedOrganizations &&
                 <table className="w-full text-sm text-left rtl:text-right">
                     <thead className="text-m uppercase">
                     <tr>
@@ -66,15 +88,27 @@ export const OrganizationsOnGithub = () => {
                     </tr>
                     </thead>
                     <tbody>
- {organizationsWithReposByRepoNumber.map((organization, idx) =>
-    <tr className="border-b dark:border-gray-700" key={organization.id}>
+ {groupedOrganizations.map((group, idx) =>
+    <tr className="border-b dark:border-gray-700" key={group.name}>
         <td className="px-3 py-4">{idx + 1}</td>
         <td className="px-3 py-4">
-            <a className="text-blue-600 dark:text-blue-500 hover:underline"
-               href={organization.url}>{organization.name}</a>
+            {group.orgs.length === 1 ? (
+                <a className="text-blue-600 dark:text-blue-500 hover:underline"
+                   href={group.orgs[0].url}>{group.name}</a>
+            ) : (
+                <div>
+                    <span className="text-blue-600 dark:text-blue-500">{group.name}</span>
+                    <div className="mt-1 flex flex-wrap gap-x-2 text-xs">
+                        {group.orgs.map((org) => (
+                            <a key={org.id} className="text-blue-600 dark:text-blue-500 hover:underline"
+                               href={org.url}>{org.owner}</a>
+                        ))}
+                    </div>
+                </div>
+            )}
         </td>
         <td className="px-3 py-4">
-            {organization.repos}
+            {group.totalRepos}
         </td>
     </tr>
 )}
