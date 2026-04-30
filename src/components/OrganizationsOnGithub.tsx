@@ -99,10 +99,12 @@ export const OrganizationsOnGithub = () => {
                 <div>
                     <span className="text-blue-600 dark:text-blue-500">{group.name}</span>
                     <div className="mt-1 flex flex-wrap gap-x-2 text-xs">
+                        <span>(</span>
                         {group.orgs.map((org) => (
                             <a key={org.id} className="text-blue-600 dark:text-blue-500 hover:underline"
                                href={org.url}>{org.owner}</a>
                         ))}
+                        <span>)</span>
                     </div>
                 </div>
             )}
