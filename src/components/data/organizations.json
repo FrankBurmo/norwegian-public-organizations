@@ -85,7 +85,7 @@
   },
   {
     "id": 15,
-    "name": "Nav teknologiavdelingen",
+    "name": "Nav",
     "url": "https://github.com/navikt",
     "owner": "navikt"
   },
@@ -217,7 +217,7 @@
   },
   {
     "id": 37,
-    "name": "NAIS - Nav Application Infrastructure Service",
+    "name": "Nav",
     "url": "https://github.com/nais",
     "owner": "nais"
   },
@@ -246,3 +246,4 @@
     "owner": "Arbeidstilsynet"
   }
 ]
+ 
