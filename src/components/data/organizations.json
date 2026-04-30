@@ -61,7 +61,7 @@
   },
   {
     "id": 11,
-    "name": "Norsk rikskringkasting (NRK)",
+    "name": "Norsk rikskringkasting",
     "url": "https://github.com/nrkno",
     "owner": "nrkno"
   },
@@ -133,7 +133,7 @@
   },
   {
     "id": 23,
-    "name": "Digitaliseringsdirektoratet (Digdir)",
+    "name": "Digitaliseringsdirektoratet",
     "url": "https://github.com/difi",
     "owner": "difi"
   },
@@ -246,4 +246,3 @@
     "owner": "Arbeidstilsynet"
   }
 ]
- 
