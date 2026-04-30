@@ -11,6 +11,8 @@ jest.mock('../../app/api/github', () => ({
 jest.mock('../data/organizations.json', () => [
     {id: 1, name: 'Nav Teknologiavdelingen', url: 'https://github.com/navikt', owner: 'navikt'},
     {id: 2, name: 'Skatteetaten', url: 'https://github.com/skatteetaten', owner: 'skatteetaten'},
+    {id: 3, name: 'Statens vegvesen', url: 'https://github.com/nvdb-vegdata', owner: 'nvdb-vegdata'},
+    {id: 4, name: 'Statens vegvesen', url: 'https://github.com/vegvesen', owner: 'vegvesen'},
 ])
 
 const mockGetNumberOfPublicRepos = jest.mocked(getNumberOfPublicRepos)
@@ -39,9 +41,7 @@ describe('OrganizationsOnGithub', () => {
     })
 
     it('renders organizations with repo counts after data loads', async () => {
-        mockGetNumberOfPublicRepos
-            .mockResolvedValueOnce(100)
-            .mockResolvedValueOnce(50)
+        mockGetNumberOfPublicRepos.mockResolvedValue(0)
 
         render(<OrganizationsOnGithub/>)
 
@@ -87,5 +87,42 @@ describe('OrganizationsOnGithub', () => {
 
         const githubLink = screen.getByRole('link', {name: /Norwegian public organizations repo on Github/i})
         expect(githubLink).toHaveAttribute('href', 'https://github.com/MikAoJk/norwegian-public-organizations')
+    })
+
+    it('groups organizations with the same name and sums their repo counts', async () => {
+        mockGetNumberOfPublicRepos.mockImplementation((owner: string) => {
+            if (owner === 'nvdb-vegdata') return Promise.resolve(50)
+            if (owner === 'vegvesen') return Promise.resolve(30)
+            return Promise.resolve(0)
+        })
+
+        render(<OrganizationsOnGithub/>)
+
+        await waitFor(() => {
+            // Group name shown as plain text (not a standalone link)
+            expect(screen.getByText('Statens vegvesen')).toBeInTheDocument()
+            // Individual GitHub org links shown under the group
+            expect(screen.getByRole('link', {name: 'nvdb-vegdata'})).toHaveAttribute('href', 'https://github.com/nvdb-vegdata')
+            expect(screen.getByRole('link', {name: 'vegvesen'})).toHaveAttribute('href', 'https://github.com/vegvesen')
+            // Summed repo count: 50 + 30 = 80
+            expect(screen.getByText('80')).toBeInTheDocument()
+        })
+    })
+
+    it('ranks grouped organization by total repos across all its orgs', async () => {
+        mockGetNumberOfPublicRepos.mockImplementation((owner: string) => {
+            if (owner === 'navikt') return Promise.resolve(40)
+            if (owner === 'nvdb-vegdata') return Promise.resolve(50)
+            if (owner === 'vegvesen') return Promise.resolve(30)
+            return Promise.resolve(0)
+        })
+
+        render(<OrganizationsOnGithub/>)
+
+        await waitFor(() => {
+            const rows = screen.getAllByRole('row')
+            // Statens vegvesen total: 80 > navikt: 40, so grouped org ranks first
+            expect(rows[1]).toHaveTextContent('Statens vegvesen')
+        })
     })
 })
